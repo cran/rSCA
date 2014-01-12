@@ -1,0 +1,10 @@
+# Exported functions
+export(
+	rSCA.missing,
+	rSCA.correlation,
+	rSCA.modeling,
+	rSCA.inference
+)
+
+
+
