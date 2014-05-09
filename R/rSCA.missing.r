@@ -91,7 +91,7 @@ rSCA.missing <- function(file, row.names = FALSE, col.names = FALSE, missing.fla
 		if (sum(o_missing_matrix[irow, ]) > 0)
 			n_row_missing = n_row_missing + 1
 	}
-	n_col_missing_percent = round((n_row_missing / n_datarow) * 100, digits = 2)
+	n_row_missing_percent = round((n_row_missing / n_datarow) * 100, digits = 2)
 	
 	#: calculate missing cols
 	n_col_missing = 0
@@ -108,7 +108,7 @@ rSCA.missing <- function(file, row.names = FALSE, col.names = FALSE, missing.fla
 	rownames(s_missing_statistics) = c("by element: ", "by row: ", "by column: ")
 	colnames(s_missing_statistics) = c("total ", "missing ", "percent")
 	s_missing_statistics[1, ] = c(n_totaldata, n_totalmissing, paste(n_totalmissing_percent, "%", sep = " "))
-	s_missing_statistics[2, ] = c(n_datarow, n_row_missing, paste(n_col_missing_percent, "%", sep = " "))
+	s_missing_statistics[2, ] = c(n_datarow, n_row_missing, paste(n_row_missing_percent, "%", sep = " "))
 	s_missing_statistics[3, ] = c(n_datacol, n_col_missing, paste(n_col_missing_percent, "%", sep = " "))
 	
 	#: construct missing table
