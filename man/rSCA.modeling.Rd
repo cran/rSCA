@@ -7,7 +7,7 @@
 }
 
 \description{
-	This function serves as a tool for modeling the relationships between dependent and independent variables. The modeling results are given by a clustered tree. The information for the clustered tree is saved into two text files: tree file (file name: tree_***.txt) and map file (file name: map_***.txt). The tree file stores the structure of the clustered tree, and the map file contains the detailed information of leaf clusters. There two files are usually generated at the current work directory. If the debug mode is enabled, a log file (file name: log_***.txt) will also be generated at the current work directory.
+	This function models the relationship between multivariate dependent variable and independent ones. It represents the relationship as a clustered tree. The information for the clustered tree is saved into two text files: tree file (file name: tree_***.txt) and map file (file name: map_***.txt). A tree file stores in the structure of the clustered tree, and a map file contains the detailed information of leaf nodes. There two files are usually generated under your current work directory. If the debug mode is enabled, a log file (file name: log_***.txt) will also be generated under the current work directory. A free tool (named rSCA Tree Generator) for visualizing the cluster tree from rSCA is also released along with this new version and it can be downloaded at: https://rscatree.weebly.com/.
 }
 
 \usage{
@@ -19,43 +19,43 @@
 
 \arguments{
 	\item{alpha}{
-		a given significance level for the clustering procedure. Default value is 0.05.
+		significance level for clustering, usually in 0.001 - 0.1, default value is 0.05.
 	}
 	\item{xfile}{
-		a string to specify the path to the data file of the independent variables (X), only supports files in two formats: *.txt or *.csv.
+		a string to specify the full filename of the independent (x) data file, only supports files in *.txt or *.csv.
 	}
 	\item{yfile}{
-		a string to specify the path to the data file of the dependent variables (Y), only supports files in two formats: *.txt or *.csv.
+		a string to specify the full filename of the dependent (y) data file, only supports files in *.txt or *.csv.
 	}
 	\item{x.row.names}{
-		a logical value to specify if the independent (X) data file contains row names or not. Default value is FALSE. 
+		a logical value to specify if the independent (x) data file contains row names or not. Default value is FALSE. 
 	}
 	\item{x.col.names}{
-		a logical value to specify if the independent (X) data file contains column names or not. Default value is FALSE. 
+		a logical value to specify if the independent (x) data file contains column names or not. Default value is FALSE. 
 	}
 	\item{y.row.names}{
-		a logical value to specify if the dependent (Y) data file contains row names or not. Default value is FALSE. 
+		a logical value to specify if the dependent (y) data file contains row names or not. Default value is FALSE. 
 	}
 	\item{y.col.names}{
-		a logical value to specify if the dependent (Y) data file contains column names or not. Default value is FALSE. 
+		a logical value to specify if the dependent (y) data file contains column names or not. Default value is FALSE. 
 	}
 	\item{x.missing.flag}{
-		a string to specify the missing flag used in the independent (X) data file. Default value is "NA".
+		a string to specify the missing flag used in the independent (x) data file. Default value is "NA".
 	}
 	\item{y.missing.flag}{
-		a string to specify the missing flag used in the dependent (Y) data file. Default value is "NA".
+		a string to specify the missing flag used in the dependent (y) data file. Default value is "NA".
 	}
 	\item{x.type}{
-		a string to specify the type of independent (X) data file. Default value is ".txt".
+		a string to specify the type of independent (x) data file. Default value is ".txt".
 	}
 	\item{y.type}{
-		a string to specify the type of dependent (X) data file. Default value is ".txt".
+		a string to specify the type of dependent (y) data file. Default value is ".txt".
 	}
 	\item{mapvalue}{
-		a predefined string to specify how the information of leaf clusters will be stored in the map file. A full list of options for mapvalue includes: "mean", "max", "min", "median", "interval", "radius", "variation", and "random". Default value is "mean" which means only the sample means of the leaf clusters will saved into the map file. Similarly, the options of "max", "min", and "median" indicate the maximum, minimum, and median values of the leaf clusters will be stored into the map file, respectively. The other options allow users to obtain more information about the leaf clusters and thus to reflect a certain degree of uncertainty in the predicted results. For example, users can select the option of "interval" to obtain an interval (denoted as [min, max]) bounded by the minimum and maximum values of the leaf clusters. The option of "radius" will output the sample means and the corresponding radius which can be computed by (max-min)/2. The option of "variation" will output the sample means and the corresponding standard deviation. The option of "random" will save the information of the leaf clusters as an interval like the "interval" option, but it will pick up a number randomly within the interval and regard it as the predicted value of dependent variable in the inference or prediction process.
+		a predefined string to specify how the information of leaf nodes will be stored in the map file. A full list of options for mapvalue is: {mean, max, min, median, interval, radius, variation, random}. Default value is "mean". Use "interval" to get an interval bounded by the minimum and maximum values, (i.e., [min, max]). The option of "radius" will output the mean and the radius [i.e., (max - min) / 2] at the same time. Use "variation" to output the mean and the standard deviation. The option of "random" will output the information as an interval like the "interval" option, but it will use a random value within the interval as the predicted value.
 	}
 	\item{GSS}{
-		a logical value to specify if the Golden Section Search method will be used for seeking the best cutting point. Default value is FALSE. When the number of input samples and/or the number of independent variables are very large, the computation for determining the best cutting point will be very time-consuming. In that case, the Golden Section Search method is suggested for speeding up the seeking process of the best cutting point.
+		a logical value to specify if the Golden Section Search method will be used for seeking the best cutting point. Default value is FALSE.
 	}
 	\item{debug}{
 		a logical value to specify if the debug mode is enabled or not. Default value is FALSE. A log file will be created under your current work directory if debug model is enabled.
@@ -64,38 +64,37 @@
 
 \value{
 	\item{treefile}{
-		a string indicating the name of the tree file, e.g., tree_20140502_215627_139908
-		9387068.79_3976.txt.
+		a string shows the name of the tree file, tree_***.txt.
 	}
 	\item{mapfile}{
-		a string indicating the name of the map file, e.g., map_20140502_215627_13990
-		89387068.79_3976.txt.
+		a string shows the name of the map file, map_***.txt.
 	}
 	\item{logfile}{
-		a string indicating the name of the map file, e.g., log_20140502_215627_139908
-		9387068.79_3976.txt. If the debug mode is disabled, the return value of logfile will be NA.
+		a string shows the name of the log file, log_***.txt. If the debug mode is disabled, the value of logfile will be NA.
 	}
 	\item{type}{
-		a string indicating how the information of leaf clusters will be stored. Generally, the \code{type} shares the same value as specified by the input parameter -- "mapvalue".
+		a string indicates how the information of leaf nodes will be stored. Generally, the "type" keeps the same value as specified by the input parameter -- "mapvalue".
 	}
 	\item{totalNodes}{
-		a number indicating how many clusters (including both intermediate and leaf clusters) are generated throughout the clustering procedure.
+		a number indicates how many nodes are included in the clustered tree.
 	}
 	\item{leafNodes}{
-		a number indicating how many leaf clusters are included in the ouput tree.
+		a number indicates how many leaf nodes are generated the clustered tree.
 	}
 	\item{cuttingActions}{
-		a number indicating how many cutting actions are executed during the clustering procedure.
+		a number indicates how many cutting actions are executed during the modeling process.
 	}
 	\item{mergingActions}{
-		a number indicating how many merging actions are executed during the clustering procedure.
+		a number indicates how many merging actions are executed during the modeling process.
 	}
 }
 
 \references{
-Wang, Xiuquan, Guohe Huang, Qianguo Lin, Xianghui Nie, Guanhui Cheng, Yurui Fan, Zhong Li, Yao Yao, and Meiqin Suo (2013). A stepwise cluster analysis approach for downscaled climate projection - A Canadian case study. Environmental Modelling & Software, 49: 141-151.
+Wang, X., G. Huang, S. Zhao, and G. Guo (2015), An open-source software package for multivariate modeling and clustering: applications to air quality management. Environmental Science and Pollution Research, 22(18), 14220-14233.
 
-Huang, Guohe (1992). A stepwise cluster analysis method for predicting air quality in an urban environment. Atmospheric Environment (Part B. Urban Atmosphere), 26(3): 349-357.
+Wang, X., G. Huang, Q. Lin, X. Nie, G. Cheng, Y. Fan, Z. Li, Y. Yao, and M. Suo (2013), A stepwise cluster analysis approach for downscaled climate projection - A Canadian case study. Environmental Modelling & Software, 49, 141-151.
+
+Huang, G. (1992). A stepwise cluster analysis method for predicting air quality in an urban environment. Atmospheric Environment (Part B. Urban Atmosphere), 26(3): 349-357.
 
 Liu, Y. Y. and Y. L. Wang (1979). Application of stepwise cluster analysis in medical research. Scientia Sinica, 22(9): 1082-1094.
 }

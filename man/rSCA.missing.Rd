@@ -17,7 +17,7 @@
 
 \arguments{
 	\item{file}{
-		a string to specify the path to the data file, only supports files in two formats: .txt or .csv.
+		a string to specify the full filename of the data file, only supports files in *.txt or *.csv.
 	}
 	\item{row.names}{
 		a logical value to specify if the data file contains row names or not. Default value is FALSE. 

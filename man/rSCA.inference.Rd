@@ -7,7 +7,7 @@
 }
 
 \description{
-	This function is used for statistical inference or prediction based on an existing stepwise cluster analysis (SCA) model. The results are saved into a text file (file name: rsl_***.txt) at the current work directory.
+	This function is used for statistical inference or prediction based on an existing stepwise cluster analysis (SCA) model. The results are saved into a text file (file name: rsl_***.txt) under the current work directory. In some cases, the training process of SCA with large samples will be very slow, but users may want to use the trained model to do multiple predictions. If this is the case, users can construct a SCA model based on previously-generated tree and map files (that means you only need to run rSCA.modeling function once). Such model can be assigned to the last parameter (i.e., "model") of this function to perform multiple predictions. Please refer to the following example codes for more details.
 }
 
 \usage{
@@ -17,31 +17,29 @@
 
 \arguments{
 	\item{xfile}{
-		a string to specify the file path to the new dataset of independent variables (X), only supports files in two formats: .txt or .csv.
+		a string to specify the full filename of the independent (x) data file, only supports files in *.txt or *.csv.
 	}
 	\item{x.row.names}{
-		a logical value to specify if the new data file contains row names or not. Default value is FALSE.
+		a logical value to specify if the independent (x) data file contains row names or not. Default value is FALSE. 
 	}
 	\item{x.col.names}{
-		a logical value to specify if the new data file contains column names or not. Default value is FALSE. 
+		a logical value to specify if the independent (x) data file contains column names or not. Default value is FALSE. 
 	}
 	\item{x.missing.flag}{
-		a string to specify the missing flag used in the new data file. Default value is "NA".
+		a string to specify the missing flag used in the independent (x) data file. Default value is "NA".
 	}
 	\item{x.type}{
-		a string to specify the file type of the new dataset of independent variables. Default value is ".txt".
+		a string to specify the type of independent (x) data file. Default value is ".txt".
 	}
 	\item{model}{
-		a model object to be used for statistical inference or prediction. This object is usually returned by the function of rSCA.modeling(). Users can also construct a new object themselves by assigning values to all attributes of a list object as defined in rSCA.modeling(). 
+		a SCA model object to be used for statistical inference or prediction.
 	}
 }
 
 \references{
-Wang, Xiuquan, Guohe Huang, Qianguo Lin, Xianghui Nie, Guanhui Cheng, Yurui Fan, Zhong Li, Yao Yao, and Meiqin Suo (2013). A stepwise cluster analysis approach for downscaled climate projection - A Canadian case study. Environmental Modelling & Software, 49: 141-151.
+Wang, X., G. Huang, S. Zhao, and G. Guo (2015), An open-source software package for multivariate modeling and clustering: applications to air quality management. Environmental Science and Pollution Research, 22(18), 14220-14233.
 
-Huang, Guohe (1992). A stepwise cluster analysis method for predicting air quality in an urban environment. Atmospheric Environment (Part B. Urban Atmosphere), 26(3): 349-357.
-
-Liu, Y. Y. and Y. L. Wang (1979). Application of stepwise cluster analysis in medical research. Scientia Sinica, 22(9): 1082-1094.
+Wang, X., G. Huang, Q. Lin, X. Nie, G. Cheng, Y. Fan, Z. Li, Y. Yao, and M. Suo (2013), A stepwise cluster analysis approach for downscaled climate projection - A Canadian case study. Environmental Modelling & Software, 49, 141-151.
 }
 
 \author{
@@ -106,5 +104,14 @@ writeLines(xnewdata, xnewdatafile)
 
 ## Predict Y with the SCA model
 rSCA.inference(xfile = xnewdatafile, x.col.names = TRUE, model = myModel)
+
+## Perform multiple predictions based on a previously-trained model
+## Step 1. Construct a model based on previous tree and map files: 
+## >> preModel = list(treefile = path_to_tree_file, mapfile = path_to_map_file, type = "mean")
+## Note that the value for the parameter of "type" should be the same as what you 
+## used in the previous traning
+## Step 3. Perform multiple predictions with different xfiles
+## >> rSCA.inference(xfile = xnewdatafile_1, x.col.names = TRUE, model = preModel)
+## >> rSCA.inference(xfile = xnewdatafile_2, x.col.names = TRUE, model = preModel)
 
 }

@@ -7,7 +7,7 @@
 }
 
 \description{
-	This function aims to analyze the correlations between dependent and independent variables. It prints out a table consisting of the correlation coefficient for each pair of dependent and independent variables.
+	This function aims to analyze the correlations between dependent variables and independent ones. It prints out a table consisting of the correlation coefficient for each pair of dependent and independent variables.
 }
 
 \usage{
@@ -18,34 +18,34 @@ rSCA.correlation(xfile, yfile, x.row.names = FALSE, x.col.names = FALSE,
 
 \arguments{
 	\item{xfile}{
-		a string to specify the path to the data file of the independent variables (X), only supports files in two formats: *.txt or *.csv.
+		a string to specify the full filename of the independent (x) data file, only supports files in *.txt or *.csv.
 	}
 	\item{yfile}{
-		a string to specify the path to the data file of the dependent variables (Y), only supports files in two formats: *.txt or *.csv.
+		a string to specify the full filename of the dependent (y) data file, only supports files in *.txt or *.csv.
 	}
 	\item{x.row.names}{
-		a logical value to specify if the independent (X) data file contains row names or not. Default value is FALSE. 
+		a logical value to specify if the independent (x) data file contains row names or not. Default value is FALSE. 
 	}
 	\item{x.col.names}{
-		a logical value to specify if the independent (X) data file contains column names or not. Default value is FALSE. 
+		a logical value to specify if the independent (x) data file contains column names or not. Default value is FALSE. 
 	}
 	\item{y.row.names}{
-		a logical value to specify if the dependent (Y) data file contains row names or not. Default value is FALSE. 
+		a logical value to specify if the dependent (y) data file contains row names or not. Default value is FALSE. 
 	}
 	\item{y.col.names}{
-		a logical value to specify if the dependent (Y) data file contains column names or not. Default value is FALSE. 
+		a logical value to specify if the dependent (y) data file contains column names or not. Default value is FALSE. 
 	}
 	\item{x.missing.flag}{
-		a string to specify the missing flag used in the independent (X) data file. Default value is "NA".
+		a string to specify the missing flag used in the independent (x) data file. Default value is "NA".
 	}
 	\item{y.missing.flag}{
-		a string to specify the missing flag used in the dependent (Y) data file. Default value is "NA".
+		a string to specify the missing flag used in the dependent (y) data file. Default value is "NA".
 	}
 	\item{x.type}{
-		a string to specify the type of independent (X) data file. Default value is ".txt".
+		a string to specify the type of independent (x) data file. Default value is ".txt".
 	}
 	\item{y.type}{
-		a string to specify the type of dependent (Y) data file. Default value is ".txt".
+		a string to specify the type of dependent (y) data file. Default value is ".txt".
 	}
 }
 

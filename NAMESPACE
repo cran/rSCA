@@ -5,6 +5,7 @@ export(
 	rSCA.modeling,
 	rSCA.inference
 )
-
+importFrom("stats", "cor", "median", "na.omit", "qf", "runif", "sd")
+importFrom("utils", "read.csv", "read.table", "write.table")
 
 
