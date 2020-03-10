@@ -7,7 +7,7 @@
 }
 
 \description{
-	This function is used for statistical inference or prediction based on an existing stepwise cluster analysis (SCA) model. The results are saved into a text file (file name: rsl_***.txt) under the current work directory. In some cases, the training process of SCA with large samples will be very slow, but users may want to use the trained model to do multiple predictions. If this is the case, users can construct a SCA model based on previously-generated tree and map files (that means you only need to run rSCA.modeling function once). Such model can be assigned to the last parameter (i.e., "model") of this function to perform multiple predictions. Please refer to the following example codes for more details.
+	This function is used for statistical inference or prediction based on an existing stepwise cluster analysis (SCA) model. The results are saved into a text file (file name: rsl_modelname.txt) under the model's output folder. In some cases, the training process of SCA with large samples will be very slow, but users may want to use the trained model to do multiple predictions. If this is the case, users can construct a SCA model based on previously-generated tree and map files (that means you only need to run rSCA.modeling function once). Such model can be assigned to the last parameter (i.e., "model") of this function to perform multiple predictions. Please refer to the following example codes for more details.
 }
 
 \usage{
@@ -90,10 +90,6 @@ ydata <- c("Y1 Y2 Y3\r", "0.020 0.034 10.01\r",
 ydatafile <- tempfile()
 writeLines(ydata, ydatafile)
 
-## Modeling the relationship between Y and X with SCA
-myModel = rSCA.modeling(xfile = xdatafile, yfile = ydatafile,
-              x.col.names = TRUE, y.col.names = TRUE)
-
 ## New X data
 xnewdata <- c("A B C D\r", "0.085 0.054 35.9 29\r", 
            "0.820 0.068 9.2 7\r", "0.121 0.067 12.4 13\r",
@@ -102,6 +98,10 @@ xnewdata <- c("A B C D\r", "0.085 0.054 35.9 29\r",
 xnewdatafile <- tempfile()
 writeLines(xnewdata, xnewdatafile)
 
+## Modeling the relationship between Y and X with SCA
+myModel = rSCA.modeling(xfile = xdatafile, yfile = ydatafile,
+              x.col.names = TRUE, y.col.names = TRUE)
+			  
 ## Predict Y with the SCA model
 rSCA.inference(xfile = xnewdatafile, x.col.names = TRUE, model = myModel)
 

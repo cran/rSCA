@@ -74,6 +74,8 @@ rSCA.env$b_debug = FALSE
 #
 # INPUTs:
 #
+#		@modelname:			specify a unique model name (updated on March 2, 2020 by Xander Wang at Charlottetown, PE, Canada)
+#
 #		@alpha:				significance level, usually in 0.001 - 0.05, default is 0.05
 #
 #		@xfile: 			a string to specify the full file name of the x file, only supports *.txt or *.csv
@@ -107,6 +109,8 @@ rSCA.env$b_debug = FALSE
 #
 #		@debug:				TRUE/FALSE, default is FALSE, log file will be created if debug is TRUE
 #
+#		@outfolder:			full path to the output folder, the default output folder is tempdir()
+#
 # OUTPUTs:
 #
 #		@statistics infos:	to screen
@@ -118,7 +122,7 @@ rSCA.env$b_debug = FALSE
 #		@model object:		treefile + mapfile + type (mean/interval)
 #
 ###################################################
-rSCA.modeling <- function(alpha = 0.05, xfile, yfile, x.row.names = FALSE, x.col.names = FALSE, y.row.names = FALSE, y.col.names = FALSE, x.missing.flag = "NA", y.missing.flag = "NA", x.type = ".txt", y.type = ".txt", mapvalue = "mean", GSS = FALSE, debug = FALSE)
+rSCA.modeling <- function(modelname = "rSCA", alpha = 0.05, xfile, yfile, x.row.names = FALSE, x.col.names = FALSE, y.row.names = FALSE, y.col.names = FALSE, x.missing.flag = "NA", y.missing.flag = "NA", x.type = ".txt", y.type = ".txt", mapvalue = "mean", GSS = FALSE, debug = FALSE, outfolder = tempdir())
 {
 	rSCA.env$n_alpha = alpha
 	rSCA.env$n_mapvalue = mapvalue
@@ -202,18 +206,13 @@ rSCA.modeling <- function(alpha = 0.05, xfile, yfile, x.row.names = FALSE, x.col
 
 		rSCA.env$o_sample_data_y = o_ydata
 		rSCA.env$n_sample_y_cols = ncol(rSCA.env$o_sample_data_y)
-		
-		s_tmp_filename = get_random_filename()
-		s_tmp_treefile = paste("tree_", s_tmp_filename, ".txt", sep = "")
-		s_tmp_mapfile = paste("map_", s_tmp_filename, ".txt", sep = "")
-		s_tmp_logfile = paste("log_", s_tmp_filename, ".txt", sep = "")
 
-		rSCA.env$s_tree_file = paste("tree_", s_tmp_filename, ".txt", sep = "")
-		rSCA.env$s_tree_filepath = rSCA.env$s_tree_file
-		rSCA.env$s_map_file = paste("map_", s_tmp_filename, ".txt", sep = "")
-		rSCA.env$s_map_filepath = rSCA.env$s_map_file
-		rSCA.env$s_logfile = paste("log_", s_tmp_filename, ".txt", sep = "")
-		rSCA.env$s_logfilepath = rSCA.env$s_logfile
+		rSCA.env$s_tree_file = paste(outfolder, "/tree_", modelname, ".txt", sep = "")
+		rSCA.env$s_tree_filepath = paste(outfolder, "/tree_", modelname, ".txt", sep = "")
+		rSCA.env$s_map_file = paste(outfolder, "/map_", modelname, ".txt", sep = "")
+		rSCA.env$s_map_filepath = paste(outfolder, "/map_", modelname, ".txt", sep = "")
+		rSCA.env$s_logfile = paste(outfolder, "/log_", modelname, ".txt", sep = "")
+		rSCA.env$s_logfilepath = paste(outfolder, "/log_", modelname, ".txt", sep = "")
 
 		#: start SCA modeling
 		do_cluster()
@@ -225,6 +224,8 @@ rSCA.modeling <- function(alpha = 0.05, xfile, yfile, x.row.names = FALSE, x.col
 			o_model$logfile = rSCA.env$s_logfile
 		else
 			o_model$logfile = "NA"
+		o_model$s_rslfile = paste(outfolder, "/rsl_", modelname, ".txt", sep = "")
+		o_model$s_rslfilepath = paste(outfolder, "/rsl_", modelname, ".txt", sep = "")
 		o_model$type = rSCA.env$n_mapvalue
 		o_model$totalNodes = length(rSCA.env$o_output_tree)
 		o_model$leafNodes = rSCA.env$n_leafnodes_count

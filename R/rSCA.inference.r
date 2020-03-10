@@ -96,9 +96,8 @@ rSCA.inference <- function(xfile, x.row.names = FALSE, x.col.names = FALSE, x.mi
 	rSCA.env$n_y_cols_p = ncol(rSCA.env$o_mean_y_p)
 	
 	#: define the result file
-	s_tmp_file = paste("rsl_", get_random_filename(), ".txt", sep = "")
-	rSCA.env$s_result_file_p = s_tmp_file
-	rSCA.env$s_result_filepath_p = s_tmp_file
+	rSCA.env$s_result_file_p = model$s_rslfile
+	rSCA.env$s_result_filepath_p = model$s_rslfilepath
 	
 	#: set model type
 	rSCA.env$n_model_type_p = model$type

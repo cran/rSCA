@@ -7,17 +7,23 @@
 }
 
 \description{
-	This function models the relationship between multivariate dependent variable and independent ones. It represents the relationship as a clustered tree. The information for the clustered tree is saved into two text files: tree file (file name: tree_***.txt) and map file (file name: map_***.txt). A tree file stores in the structure of the clustered tree, and a map file contains the detailed information of leaf nodes. There two files are usually generated under your current work directory. If the debug mode is enabled, a log file (file name: log_***.txt) will also be generated under the current work directory. A free tool (named rSCA Tree Generator) for visualizing the cluster tree from rSCA is also released along with this new version and it can be downloaded at: https://rscatree.weebly.com/.
+	This function models the relationship between multivariate dependent variable and independent ones. It represents the relationship as a clustered tree. The information for the clustered tree is saved into two text files: tree file (file name: tree_modelname.txt) and map file (file name: map_modelname.txt). A tree file stores in the structure of the clustered tree, and a map file contains the detailed information of leaf nodes. There two files are generated under the output folder. If the debug mode is enabled, a log file (file name: log_modelname.txt) will also be generated under the output folder. A free tool (named rSCA Tree Generator) for visualizing the cluster tree from rSCA is also released along with this new version and it can be downloaded at: https://rscatree.weebly.com/.
 }
 
 \usage{
-	rSCA.modeling(alpha = 0.05, xfile, yfile, x.row.names = FALSE, 
-        x.col.names = FALSE, y.row.names = FALSE, y.col.names = FALSE, 
-        x.missing.flag = "NA", y.missing.flag = "NA", x.type = ".txt", 
-        y.type = ".txt", mapvalue = "mean", GSS = FALSE, debug = FALSE)
+	rSCA.modeling(modelname = "rSCA", alpha = 0.05, xfile, yfile,  
+        x.row.names = FALSE, x.col.names = FALSE, 
+		y.row.names = FALSE, y.col.names = FALSE, 
+        x.missing.flag = "NA", y.missing.flag = "NA", 
+		x.type = ".txt", y.type = ".txt", 
+		mapvalue = "mean", GSS = FALSE, debug = FALSE,
+		outfolder = tempdir())
 }
 
 \arguments{
+	\item{modelname}{
+		specify a unique model name, default model name is rSCA.
+	}
 	\item{alpha}{
 		significance level for clustering, usually in 0.001 - 0.1, default value is 0.05.
 	}
@@ -58,19 +64,22 @@
 		a logical value to specify if the Golden Section Search method will be used for seeking the best cutting point. Default value is FALSE.
 	}
 	\item{debug}{
-		a logical value to specify if the debug mode is enabled or not. Default value is FALSE. A log file will be created under your current work directory if debug model is enabled.
+		a logical value to specify if the debug mode is enabled or not. Default value is FALSE. A log file will be created under the output folder if debug model is enabled.
+	}
+	\item{outfolder}{
+		full path to the output folder, the default output folder is tempdir().
 	}
 }
 
 \value{
 	\item{treefile}{
-		a string shows the name of the tree file, tree_***.txt.
+		a string shows the name of the tree file, tree_modelname.txt. The tree file will be located under the output folder.
 	}
 	\item{mapfile}{
-		a string shows the name of the map file, map_***.txt.
+		a string shows the name of the map file, map_modelname.txt. The tree file will be located under the output folder.
 	}
 	\item{logfile}{
-		a string shows the name of the log file, log_***.txt. If the debug mode is disabled, the value of logfile will be NA.
+		a string shows the name of the log file, log_modelname.txt. If the debug mode is disabled, the value of logfile will be NA. The tree file will be located under the output folder.
 	}
 	\item{type}{
 		a string indicates how the information of leaf nodes will be stored. Generally, the "type" keeps the same value as specified by the input parameter -- "mapvalue".
